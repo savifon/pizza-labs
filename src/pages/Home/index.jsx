@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from "react";
 
-import { api } from "../../service/api";
+// import { api } from "../../service/api";
+import data from "../../server/pizzas.json";
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      await api
-        .get("/pizzas")
-        .then((response) => {
-          const data = response.data.map((pizza, index) => ({
-            ...pizza,
-            id: index + 1,
-          }));
+    const pizzas = data.map((pizza, index) => ({
+      ...pizza,
+      id: index + 1,
+    }));
 
-          setPizzas(data);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    })();
+    setPizzas(pizzas);
+
+    // (async () => {
+    //   await api
+    //     .get("/pizzas")
+    //     .then((response) => {
+    //       const data = response.data.map((pizza, index) => ({
+    //         ...pizza,
+    //         id: index + 1,
+    //       }));
+
+    //       setPizzas(data);
+    //     })
+    //     .catch((err) => {
+    //       console.error(err);
+    //     });
+    // })();
   }, []);
 
   const handleAddCart = (pizza) => {
