@@ -4,27 +4,27 @@ import React, { useEffect, useState } from "react";
 import data from "../../server/pizzas.json";
 
 const Home = () => {
-  const [pizzas, setPizzas] = useState([]);
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const pizzas = data.map((pizza, index) => ({
-      ...pizza,
+    const products = data.map((product, index) => ({
+      ...product,
       id: index + 1,
     }));
 
-    setPizzas(pizzas);
+    setProducts(products);
 
     // (async () => {
     //   await api
     //     .get("/pizzas")
     //     .then((response) => {
-    //       const data = response.data.map((pizza, index) => ({
-    //         ...pizza,
+    //       const data = response.data.map((product, index) => ({
+    //         ...product,
     //         id: index + 1,
     //       }));
 
-    //       setPizzas(data);
+    //       setProducts(data);
     //     })
     //     .catch((err) => {
     //       console.error(err);
@@ -32,31 +32,31 @@ const Home = () => {
     // })();
   }, []);
 
-  const handleAddCart = (pizza) => {
-    const found = cart.find((item) => item.id === pizza.id);
+  const handleAddCart = (product) => {
+    const found = cart.find((item) => item.id === product.id);
 
     if (found) {
       setCart(
         cart.map((item) =>
-          item.id === pizza.id ? { ...found, qty: found.qty + 1 } : item
+          item.id === product.id ? { ...found, qty: found.qty + 1 } : item
         )
       );
     } else {
-      setCart([...cart, { ...pizza, qty: 1 }]);
+      setCart([...cart, { ...product, qty: 1 }]);
     }
   };
 
-  const handleRemoveCart = (pizza) => {
-    const found = cart.find((item) => item.id === pizza.id);
+  const handleRemoveCart = (product) => {
+    const found = cart.find((item) => item.id === product.id);
 
     if (found.qty > 1) {
       setCart(
         cart.map((item) =>
-          item.id === pizza.id ? { ...found, qty: found.qty - 1 } : item
+          item.id === product.id ? { ...found, qty: found.qty - 1 } : item
         )
       );
     } else {
-      setCart(cart.filter((item) => item.id !== pizza.id));
+      setCart(cart.filter((item) => item.id !== product.id));
     }
   };
 
@@ -64,16 +64,16 @@ const Home = () => {
     <>
       <h1>Home</h1>
 
-      {pizzas.length ? (
-        pizzas.map((pizza) => (
-          <div key={pizza.id}>
+      {products.length ? (
+        products.map((product) => (
+          <div key={product.id}>
             <p>
-              {pizza.id} - {pizza.name}
+              {product.id} - {product.name}
             </p>
-            <p>{pizza.price}</p>
-            <p>{pizza.ingredients.map((ingredient) => `- ${ingredient}`)}</p>
-            <button onClick={() => handleAddCart(pizza)}>+</button>
-            <button onClick={() => handleRemoveCart(pizza)}>-</button>
+            <p>{product.price}</p>
+            <p>{product.ingredients.map((ingredient) => `- ${ingredient}`)}</p>
+            <button onClick={() => handleAddCart(product)}>+</button>
+            <button onClick={() => handleRemoveCart(product)}>-</button>
           </div>
         ))
       ) : (
