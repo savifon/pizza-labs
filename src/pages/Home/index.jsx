@@ -7,7 +7,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [priceCart, setPriceCart] = useState(0);
-  const [order, setOrder] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const products = data.map((product, index) => ({
@@ -19,11 +19,13 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    setPriceCart(
-      cart.reduce((total, product) => {
-        return total + product.price * product.qty;
-      }, 0)
-    );
+    const total = cart.reduce((total, product) => {
+      return total + product.price * product.qty;
+    }, 0);
+
+    setPriceCart(total);
+
+    localStorage.setItem("order", JSON.stringify({ cart, total }));
   }, [cart]);
 
   const handleAddCart = (product) => {
@@ -55,14 +57,26 @@ const Home = () => {
   };
 
   const handleCheckout = async () => {
-    await api
-      .get("/order")
-      .then((response) => {
-        setOrder(response.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const response = await api.get("/order");
+    const data = await response.data;
+
+    if (data.success) {
+      const currentOrders = [
+        ...orders,
+        {
+          status: data,
+          products: cart,
+          price: priceCart,
+          order_at: new Date(),
+        },
+      ];
+
+      setCart([]);
+      setOrders(currentOrders);
+
+      localStorage.setItem("orders", JSON.stringify(currentOrders));
+      localStorage.removeItem("order");
+    }
   };
 
   const toMinutes = (ms) => {
@@ -101,16 +115,20 @@ const Home = () => {
           <button onClick={() => handleCheckout()}>Confirmar pedido</button>
         </>
       ) : (
-        <p>Sem dados</p>
+        <p>Você ainda não escolheu nenhum item.</p>
       )}
 
-      {order?.success ? (
-        <p>
-          Seu pedido será entregue em {toMinutes(order.deliveryTime)} minutos
-        </p>
-      ) : (
-        ""
-      )}
+      {orders
+        ? orders.map((order) => (
+            <p>
+              {order.products.map((product) => product.name)}
+              <span>{order.status.success ? "Pedido confirmado" : ""}</span>
+              <span>{order.status.deliveryTime}</span>
+              <span>{order.order_at.toString()}</span>
+              <span>{order.price}</span>
+            </p>
+          ))
+        : ""}
     </>
   );
 };
