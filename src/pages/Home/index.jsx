@@ -8,18 +8,12 @@ import { CartContext } from "../../context/CartContext";
 const Home = () => {
   const { cart, priceCart, add, remove, checkout } = useContext(CartContext);
 
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const products = data.map((product, index) => ({
-      id: index + 1,
-      ...product,
-      price: product.price > 5 ? rounded(product.price * 0.95) : product.price,
-      priceOriginal: product.price > 5 ? product.price : null,
-    }));
-
-    setProducts(products);
-  }, []);
+  const products = data.map((product, index) => ({
+    id: index + 1,
+    ...product,
+    price: product.price > 5 ? rounded(product.price * 0.95) : product.price,
+    priceOriginal: product.price > 5 ? product.price : null,
+  }));
 
   return (
     <>
