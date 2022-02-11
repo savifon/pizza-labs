@@ -6,8 +6,7 @@ import { rounded } from "../../utils/format";
 import { CartContext } from "../../context/CartContext";
 
 const Home = () => {
-  const { cart, priceCart, orders, add, remove, checkout } =
-    useContext(CartContext);
+  const { cart, priceCart, add, remove, checkout } = useContext(CartContext);
 
   const [products, setProducts] = useState([]);
 
@@ -54,18 +53,6 @@ const Home = () => {
       ) : (
         <p>Você ainda não escolheu nenhum item.</p>
       )}
-
-      {orders
-        ? orders.map((order) => (
-            <p>
-              {order.products.map((product) => product.name)}
-              <span>{order.status.success ? "Pedido confirmado" : ""}</span>
-              <span>{order.status.deliveryTime}</span>
-              <span>{order.order_at.toString()}</span>
-              <span>{order.price}</span>
-            </p>
-          ))
-        : ""}
     </>
   );
 };
