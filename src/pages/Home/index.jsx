@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-// import { api } from "../../service/api";
+import { api } from "../../service/api";
 import data from "../../server/pizzas.json";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [priceCart, setPriceCart] = useState(0);
+  const [order, setOrder] = useState(null);
 
   useEffect(() => {
     const products = data.map((product, index) => ({
@@ -53,21 +54,15 @@ const Home = () => {
     }
   };
 
-  const handleCheckout = () => {
-    // (async () => {
-    //   await api
-    //     .get("/pizzas")
-    //     .then((response) => {
-    //       const data = response.data.map((product, index) => ({
-    //         ...product,
-    //         id: index + 1,
-    //       }));
-    //       setProducts(data);
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
-    // })();
+  const handleCheckout = async () => {
+    await api
+      .get("/order")
+      .then((response) => {
+        setOrder(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -101,6 +96,8 @@ const Home = () => {
       ) : (
         <p>Sem dados</p>
       )}
+
+      {order ? <p>{JSON.stringify(order)}</p> : <div>Aguardando pedido...</div>}
     </>
   );
 };
