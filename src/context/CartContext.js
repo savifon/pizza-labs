@@ -11,6 +11,19 @@ export const CartProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
+    const recoveredOrder = localStorage.getItem("order");
+    const recoveredOrders = localStorage.getItem("orders");
+
+    if (recoveredOrder) {
+      setCart(JSON.parse(recoveredOrder).cart);
+    }
+
+    if (recoveredOrders) {
+      setOrders(JSON.parse(recoveredOrders));
+    }
+  }, []);
+
+  useEffect(() => {
     const total = cart.reduce((total, product) => {
       return total + product.price * product.qty;
     }, 0);
