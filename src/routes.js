@@ -3,11 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Orders from "./pages/Orders";
-
-import GlobalStyle from "./styles/globalStyle";
-
+import Header from "./components/Header";
 import { CartProvider } from "./context/CartContext";
-import Header from "./pages/Header";
+import GlobalStyle from "./styles/globalStyle";
 
 const navItems = [
   { title: "Início", ref: "/" },

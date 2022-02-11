@@ -3,10 +3,11 @@ import React, { useContext } from "react";
 import data from "../../server/pizzas.json";
 import { rounded } from "../../utils/format";
 import { CartContext } from "../../context/CartContext";
-import { Container } from "../../styles/globalStyle";
+import { Container, FlexColumn } from "../../styles/globalStyle";
+import Cart from "../../components/Cart";
 
 const Home = () => {
-  const { cart, priceCart, add, remove, checkout } = useContext(CartContext);
+  const { cart, add } = useContext(CartContext);
 
   const products = data.map((product, index) => ({
     id: index + 1,
@@ -17,36 +18,36 @@ const Home = () => {
 
   return (
     <Container>
-      <h1>Home</h1>
+      <FlexColumn>
+        <div>
+          {products.length ? (
+            products.map((product) => (
+              <div key={product.id}>
+                <p>
+                  {product.id} - {product.name}
+                </p>
+                <p>{product.price}</p>
+                <p>{product.priceOriginal && product.priceOriginal}</p>
+                <p>
+                  {product.ingredients.map((ingredient) => `- ${ingredient}`)}
+                </p>
 
-      {products.length ? (
-        products.map((product) => (
-          <div key={product.id}>
-            <p>
-              {product.id} - {product.name}
-            </p>
-            <p>{product.price}</p>
-            <p>{product.priceOriginal && product.priceOriginal}</p>
-            <p>{product.ingredients.map((ingredient) => `- ${ingredient}`)}</p>
-            <button onClick={() => add(product)}>+</button>
-            <button onClick={() => remove(product)}>-</button>
-          </div>
-        ))
-      ) : (
-        <div>Sem itens para exibir</div>
-      )}
+                <button
+                  disabled={cart.find((item) => item.id === product.id)}
+                  className="green"
+                  onClick={() => add(product)}
+                >
+                  Adicionar
+                </button>
+              </div>
+            ))
+          ) : (
+            <div>Você não selecionou nenhum item</div>
+          )}
+        </div>
 
-      {cart.length ? (
-        <>
-          {cart.map((item) => (
-            <p key={item.id}>{JSON.stringify(item)}</p>
-          ))}
-          <p>{priceCart}</p>
-          <button onClick={() => checkout()}>Confirmar pedido</button>
-        </>
-      ) : (
-        <p>Você ainda não escolheu nenhum item.</p>
-      )}
+        <Cart />
+      </FlexColumn>
     </Container>
   );
 };
