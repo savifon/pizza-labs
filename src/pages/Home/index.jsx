@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { api } from "../../service/api";
 import data from "../../server/pizzas.json";
+import { rounded } from "../../utils/format";
+
+import { CartContext } from "../../context/CartContext";
 
 const Home = () => {
+  const { cart, priceCart, orders, add, remove, checkout } =
+    useContext(CartContext);
+
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
-  const [priceCart, setPriceCart] = useState(0);
-  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const products = data.map((product, index) => ({
@@ -19,78 +21,6 @@ const Home = () => {
 
     setProducts(products);
   }, []);
-
-  useEffect(() => {
-    const total = cart.reduce((total, product) => {
-      return total + product.price * product.qty;
-    }, 0);
-
-    setPriceCart(rounded(total));
-
-    localStorage.setItem("order", JSON.stringify({ cart, total }));
-  }, [cart]);
-
-  const handleAddCart = (product) => {
-    const found = cart.find((item) => item.id === product.id);
-
-    if (found) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id ? { ...found, qty: found.qty + 1 } : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...product, qty: 1 }]);
-    }
-  };
-
-  const handleRemoveCart = (product) => {
-    const found = cart.find((item) => item.id === product.id);
-
-    if (found.qty > 1) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id ? { ...found, qty: found.qty - 1 } : item
-        )
-      );
-    } else {
-      setCart(cart.filter((item) => item.id !== product.id));
-    }
-  };
-
-  const handleCheckout = async () => {
-    const response = await api.get("/order");
-    const data = await response.data;
-
-    if (data.success) {
-      const currentOrders = [
-        ...orders,
-        {
-          status: data,
-          products: cart,
-          price: priceCart,
-          order_at: new Date(),
-        },
-      ];
-
-      setCart([]);
-      setOrders(currentOrders);
-
-      localStorage.setItem("orders", JSON.stringify(currentOrders));
-      localStorage.removeItem("order");
-    }
-  };
-
-  const rounded = (value) => {
-    return Math.floor(value * 100) / 100;
-  };
-
-  const toMinutes = (ms) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 60000).toFixed(0);
-
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-  };
 
   return (
     <>
@@ -105,8 +35,8 @@ const Home = () => {
             <p>{product.price}</p>
             <p>{product.priceOriginal ? product.priceOriginal : ""}</p>
             <p>{product.ingredients.map((ingredient) => `- ${ingredient}`)}</p>
-            <button onClick={() => handleAddCart(product)}>+</button>
-            <button onClick={() => handleRemoveCart(product)}>-</button>
+            <button onClick={() => add(product)}>+</button>
+            <button onClick={() => remove(product)}>-</button>
           </div>
         ))
       ) : (
@@ -119,7 +49,7 @@ const Home = () => {
             <p>{JSON.stringify(item)}</p>
           ))}
           <p>{priceCart}</p>
-          <button onClick={() => handleCheckout()}>Confirmar pedido</button>
+          <button onClick={() => checkout()}>Confirmar pedido</button>
         </>
       ) : (
         <p>Você ainda não escolheu nenhum item.</p>
