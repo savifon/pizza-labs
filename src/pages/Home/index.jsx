@@ -11,8 +11,10 @@ const Home = () => {
 
   useEffect(() => {
     const products = data.map((product, index) => ({
-      ...product,
       id: index + 1,
+      ...product,
+      price: product.price > 5 ? rounded(product.price * 0.95) : product.price,
+      priceOriginal: product.price > 5 ? product.price : null,
     }));
 
     setProducts(products);
@@ -23,7 +25,7 @@ const Home = () => {
       return total + product.price * product.qty;
     }, 0);
 
-    setPriceCart(total);
+    setPriceCart(rounded(total));
 
     localStorage.setItem("order", JSON.stringify({ cart, total }));
   }, [cart]);
@@ -79,6 +81,10 @@ const Home = () => {
     }
   };
 
+  const rounded = (value) => {
+    return Math.floor(value * 100) / 100;
+  };
+
   const toMinutes = (ms) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 60000).toFixed(0);
@@ -97,6 +103,7 @@ const Home = () => {
               {product.id} - {product.name}
             </p>
             <p>{product.price}</p>
+            <p>{product.priceOriginal ? product.priceOriginal : ""}</p>
             <p>{product.ingredients.map((ingredient) => `- ${ingredient}`)}</p>
             <button onClick={() => handleAddCart(product)}>+</button>
             <button onClick={() => handleRemoveCart(product)}>-</button>
