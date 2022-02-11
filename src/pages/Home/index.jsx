@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 
 import data from "../../server/pizzas.json";
 import { rounded } from "../../utils/format";

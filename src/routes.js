@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Orders from "./pages/Orders";
 
+import GlobalStyle from "./styles/globalStyle";
+
 import { CartProvider } from "./context/CartContext";
 
 const AppRoutes = () => {
@@ -14,6 +16,7 @@ const AppRoutes = () => {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/pedidos" element={<Orders />} />
         </Routes>
+        <GlobalStyle />
       </CartProvider>
     </Router>
   );
