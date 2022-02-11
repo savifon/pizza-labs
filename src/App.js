@@ -1,14 +1,9 @@
 import React from "react";
 
-import Home from "./pages/Home";
-import { CartProvider } from "./context/CartContext";
+import AppRoutes from "./routes";
 
 function App() {
-  return (
-    <CartProvider>
-      <Home />
-    </CartProvider>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
