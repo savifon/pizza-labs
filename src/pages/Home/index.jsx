@@ -65,6 +65,13 @@ const Home = () => {
       });
   };
 
+  const toMinutes = (ms) => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 60000).toFixed(0);
+
+    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  };
+
   return (
     <>
       <h1>Home</h1>
@@ -97,7 +104,13 @@ const Home = () => {
         <p>Sem dados</p>
       )}
 
-      {order ? <p>{JSON.stringify(order)}</p> : <div>Aguardando pedido...</div>}
+      {order?.success ? (
+        <p>
+          Seu pedido será entregue em {toMinutes(order.deliveryTime)} minutos
+        </p>
+      ) : (
+        ""
+      )}
     </>
   );
 };
