@@ -50,7 +50,7 @@ export const CartProvider = ({ children }) => {
   const remove = (product) => {
     const found = cart.find((item) => item.id === product.id);
 
-    if (found.qty > 1) {
+    if (found?.qty > 1) {
       setCart(
         cart.map((item) =>
           item.id === product.id ? { ...found, qty: found.qty - 1 } : item

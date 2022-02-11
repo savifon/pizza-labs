@@ -9,17 +9,16 @@ const Orders = () => {
     <>
       <h1>Orders</h1>
 
-      {orders
-        ? orders.map((order) => (
-            <p>
-              {order.products.map((product) => product.name)}
-              <span>{order.status.success ? "Pedido confirmado" : ""}</span>
-              <span>{order.status.deliveryTime}</span>
-              <span>{order.order_at.toString()}</span>
-              <span>{order.price}</span>
-            </p>
-          ))
-        : ""}
+      {orders &&
+        orders.map((order) => (
+          <p key={crypto.randomUUID()}>
+            {order.products.map((product) => product.name)}
+            <span>{order.status.success && "Pedido confirmado"}</span>
+            <span>{order.status.deliveryTime}</span>
+            <span>{order.order_at.toString()}</span>
+            <span>{order.price}</span>
+          </p>
+        ))}
     </>
   );
 };

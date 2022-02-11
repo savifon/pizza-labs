@@ -12,7 +12,7 @@ const Home = () => {
     id: index + 1,
     ...product,
     price: product.price > 5 ? rounded(product.price * 0.95) : product.price,
-    priceOriginal: product.price > 5 ? product.price : null,
+    priceOriginal: product.price > 5 && product.price,
   }));
 
   return (
@@ -26,7 +26,7 @@ const Home = () => {
               {product.id} - {product.name}
             </p>
             <p>{product.price}</p>
-            <p>{product.priceOriginal ? product.priceOriginal : ""}</p>
+            <p>{product.priceOriginal && product.priceOriginal}</p>
             <p>{product.ingredients.map((ingredient) => `- ${ingredient}`)}</p>
             <button onClick={() => add(product)}>+</button>
             <button onClick={() => remove(product)}>-</button>
@@ -39,7 +39,7 @@ const Home = () => {
       {cart.length ? (
         <>
           {cart.map((item) => (
-            <p>{JSON.stringify(item)}</p>
+            <p key={item.id}>{JSON.stringify(item)}</p>
           ))}
           <p>{priceCart}</p>
           <button onClick={() => checkout()}>Confirmar pedido</button>
