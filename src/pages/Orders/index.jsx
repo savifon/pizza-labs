@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 
 import { CartContext } from "../../context/CartContext";
+import { Container } from "../../styles/globalStyle";
 
 const Orders = () => {
   const { orders } = useContext(CartContext);
 
   return (
-    <>
+    <Container>
       <h1>Orders</h1>
 
       {orders &&
@@ -19,7 +20,7 @@ const Orders = () => {
             <span>{order.price}</span>
           </p>
         ))}
-    </>
+    </Container>
   );
 };
 

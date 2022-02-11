@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
@@ -17,10 +17,18 @@ export default createGlobalStyle`
     outline: none;
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
+    color: var(--colorText);
   }
 
   a {
     text-decoration: none;
     color: #4f9844;
   }
+`;
+
+export const Container = styled.div`
+  display: block;
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 1250px;
 `;

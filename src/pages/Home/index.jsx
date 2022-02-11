@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 
 import data from "../../server/pizzas.json";
 import { rounded } from "../../utils/format";
-
 import { CartContext } from "../../context/CartContext";
+import { Container } from "../../styles/globalStyle";
 
 const Home = () => {
   const { cart, priceCart, add, remove, checkout } = useContext(CartContext);
@@ -16,7 +16,7 @@ const Home = () => {
   }));
 
   return (
-    <>
+    <Container>
       <h1>Home</h1>
 
       {products.length ? (
@@ -47,7 +47,7 @@ const Home = () => {
       ) : (
         <p>Você ainda não escolheu nenhum item.</p>
       )}
-    </>
+    </Container>
   );
 };
 
