@@ -1,6 +1,6 @@
 import React from "react";
-import { Title } from "../Product/styles";
 
+import { Title } from "../Product/styles";
 import { Box, Container } from "./styles";
 
 const Modal = ({ text, textButton, action }) => {

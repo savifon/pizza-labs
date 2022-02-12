@@ -1,25 +1,36 @@
 import React, { useContext } from "react";
 
-import { CartContext } from "../../context/CartContext";
+import { formatDate, formatPrice } from "../../utils/format";
 import { Container } from "../../styles/globalStyle";
+import { Title, Order, Products } from "./styles";
+import { CartContext } from "../../context/CartContext";
 
 const Orders = () => {
   const { orders } = useContext(CartContext);
 
   return (
     <Container>
-      <h1>Orders</h1>
+      <Title>Pedidos Realizados</Title>
 
-      {orders &&
+      {orders.length ? (
         orders.map((order) => (
-          <p key={crypto.randomUUID()}>
-            {order.products.map((product) => product.name)}
-            <span>{order.status.success && "Pedido confirmado"}</span>
-            <span>{order.status.deliveryTime}</span>
-            <span>{order.order_at.toString()}</span>
-            <span>{order.price}</span>
-          </p>
-        ))}
+          <Order key={order.order_at}>
+            <p>Feito em: {formatDate(order.order_at)}</p>
+
+            <Products>
+              {order.products.map((product) => (
+                <li key={product.id}>
+                  {product.name} x{product.qty}
+                </li>
+              ))}
+            </Products>
+
+            <p>Total: {formatPrice(order.price)}</p>
+          </Order>
+        ))
+      ) : (
+        <p>Você ainda não efetuou nenhum pedido</p>
+      )}
     </Container>
   );
 };

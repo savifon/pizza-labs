@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 
-import { money } from "../../utils/format";
+import { formatPrice } from "../../utils/format";
 import { CartContext } from "../../context/CartContext";
+
 import {
   Cover,
   Details,
@@ -31,12 +32,19 @@ const Product = ({ item, currentLocation }) => {
 
         <Price>
           {item.priceOriginal && (
-            <OldPrice>{money(item.priceOriginal)}</OldPrice>
+            <OldPrice>{formatPrice(item.priceOriginal)}</OldPrice>
           )}
-          {money(item.price)}
+          {formatPrice(item.price)}
         </Price>
 
         <GroupButtons>
+          {currentLocation === "cart" && (
+            <>
+              <button onClick={() => remove(item)}>-</button>
+
+              <Qty type="text" readOnly value={item.qty} />
+            </>
+          )}
           <button
             disabled={cart.find(
               (product) => product.id === item.id && currentLocation !== "cart"
@@ -46,14 +54,6 @@ const Product = ({ item, currentLocation }) => {
           >
             {currentLocation === "cart" ? "+" : "Adicionar"}
           </button>
-
-          {currentLocation === "cart" && (
-            <>
-              <Qty type="text" readOnly value={item.qty} />
-
-              <button onClick={() => remove(item)}>-</button>
-            </>
-          )}
         </GroupButtons>
       </Details>
     </ProductCard>

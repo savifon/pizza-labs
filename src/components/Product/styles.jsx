@@ -3,10 +3,6 @@ import styled from "styled-components";
 export const ProductCard = styled.div`
   display: flex;
   gap: 10px;
-
-  /* & + div {
-    margin-top: 20px;
-  } */
 `;
 
 export const Details = styled.div`
@@ -58,4 +54,9 @@ export const Cover = styled.div`
   height: 85px;
   border-radius: var(--radius);
   background: var(--colorBgSecondary);
+  background-image: linear-gradient(
+    130deg,
+    var(--colorBgPrimary),
+    var(--colorBgSecondary)
+  );
 `;

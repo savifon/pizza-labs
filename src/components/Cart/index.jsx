@@ -1,24 +1,24 @@
 import React, { useContext } from "react";
 
-import { money } from "../../utils/format";
+import { formatPrice } from "../../utils/format";
+import Product from "../Product";
 import { CartContext } from "../../context/CartContext";
 import { CartBox, Text } from "./styles";
-import Product from "../Product";
 
 const Cart = () => {
   const { cart, priceCart, checkout } = useContext(CartContext);
 
   return (
     <CartBox>
+      <Text>Resumo do pedido</Text>
+
       {cart.length ? (
         <>
-          <Text>Resumo do pedido</Text>
-
           {cart.map((item) => (
             <Product key={item.id} item={item} currentLocation="cart" />
           ))}
 
-          <Text>Total: {money(priceCart)}</Text>
+          <Text>Total: {formatPrice(priceCart)}</Text>
 
           <button className="red btn-checkout" onClick={() => checkout()}>
             Confirmar pedido

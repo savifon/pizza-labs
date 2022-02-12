@@ -14,11 +14,12 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.div`
-  padding: 50px;
+  padding: 50px 20px;
   border-radius: var(--radius);
   box-shadow: 0px 5px 10px var(--colorBgSecondary);
   border: 1px solid var(--colorBgSecondary);
   background: white;
+  width: 80vw;
   max-width: 350px;
   text-align: center;
   display: flex;

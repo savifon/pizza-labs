@@ -2,9 +2,9 @@ import React from "react";
 
 import data from "../../server/pizzas.json";
 import { rounded } from "../../utils/format";
-import { Container, FlexColumn } from "../../styles/globalStyle";
 import Cart from "../../components/Cart";
 import Product from "../../components/Product";
+import { Container, FlexColumn } from "../../styles/globalStyle";
 import { ListProducts } from "./styles";
 
 const Home = () => {

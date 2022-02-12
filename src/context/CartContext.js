@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 
+import { formatMinutes, rounded } from "../utils/format";
 import { api } from "../service/api";
-import { minutes, rounded } from "../utils/format";
 import Modal from "../components/Modal";
 
 const CartContext = createContext();
@@ -77,7 +77,7 @@ export const CartProvider = ({ children }) => {
     if (data.success) {
       const newModal = {
         ...modalSuccess,
-        text: `Seu pedido será entregue em ${minutes(
+        text: `Seu pedido será entregue em ${formatMinutes(
           data.deliveryTime
         )} minutos!`,
         action: () => setModalSuccess(initialModal),

@@ -42,10 +42,10 @@ export default createGlobalStyle`
 
     &.red {
       background: var(--colorPrimary);
+    }
 
-      &.btn-checkout {
-        padding: 10px 15px;
-      }
+    &.btn-checkout {
+      padding: 10px 15px;
     }
 
     &:disabled {
@@ -62,8 +62,12 @@ export default createGlobalStyle`
 export const Container = styled.div`
   display: block;
   margin: 0 auto;
-  padding: 30px;
+  padding: 50px 30px;
   max-width: 1250px;
+
+  @media screen and (max-width: 424px) {
+    padding: 50px 15px;
+  }
 `;
 
 export const FlexColumn = styled.div`
@@ -72,4 +76,8 @@ export const FlexColumn = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 30px;
+
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+  }
 `;
