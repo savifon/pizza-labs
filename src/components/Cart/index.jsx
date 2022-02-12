@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 
+import { money } from "../../utils/format";
 import { CartContext } from "../../context/CartContext";
 import { CartBox } from "./styles";
 
@@ -14,7 +15,7 @@ const Cart = () => {
             <div key={item.id}>
               <div className="cover" />
               <div>
-                <h4>{`${item.name} - ${item.price}`}</h4>
+                <h4>{`${item.name} - ${money(item.price)}`}</h4>
                 <p>{item.ingredients.map((ingredient) => `${ingredient} `)}</p>
 
                 <button className="green" onClick={() => add(item)}>
@@ -26,7 +27,7 @@ const Cart = () => {
             </div>
           ))}
 
-          <h4>Total: {priceCart}</h4>
+          <h3>Total: {money(priceCart)}</h3>
 
           <button className="red btn-checkout" onClick={() => checkout()}>
             Confirmar pedido

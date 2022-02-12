@@ -67,5 +67,6 @@ export const FlexColumn = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 30px;
 `;
