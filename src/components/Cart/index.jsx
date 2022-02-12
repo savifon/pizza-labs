@@ -3,28 +3,17 @@ import React, { useContext } from "react";
 import { money } from "../../utils/format";
 import { CartContext } from "../../context/CartContext";
 import { CartBox } from "./styles";
+import Product from "../Product";
 
 const Cart = () => {
-  const { cart, priceCart, checkout, add, remove } = useContext(CartContext);
+  const { cart, priceCart, checkout } = useContext(CartContext);
 
   return (
     <CartBox>
       {cart.length ? (
         <>
           {cart.map((item) => (
-            <div key={item.id}>
-              <div className="cover" />
-              <div>
-                <h4>{`${item.name} - ${money(item.price)}`}</h4>
-                <p>{item.ingredients.map((ingredient) => `${ingredient} `)}</p>
-
-                <button className="green" onClick={() => add(item)}>
-                  +
-                </button>
-                <input type="text" readOnly value={item.qty} />
-                <button onClick={() => remove(item)}>-</button>
-              </div>
-            </div>
+            <Product key={item.id} item={item} currentLocation="cart" />
           ))}
 
           <h3>Total: {money(priceCart)}</h3>

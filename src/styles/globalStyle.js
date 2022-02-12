@@ -42,7 +42,10 @@ export default createGlobalStyle`
 
     &.red {
       background: var(--colorPrimary);
-      padding: 10px 15px;
+
+      &.btn-checkout {
+        padding: 10px 15px;
+      }
     }
 
     &:disabled {
