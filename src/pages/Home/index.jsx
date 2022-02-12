@@ -5,6 +5,7 @@ import { rounded } from "../../utils/format";
 import { Container, FlexColumn } from "../../styles/globalStyle";
 import Cart from "../../components/Cart";
 import Product from "../../components/Product";
+import { ListProducts } from "./styles";
 
 const Home = () => {
   const products = data.map((product, index) => ({
@@ -17,7 +18,7 @@ const Home = () => {
   return (
     <Container>
       <FlexColumn>
-        <div>
+        <ListProducts>
           {products.length ? (
             products.map((product) => (
               <Product key={product.id} item={product} />
@@ -25,7 +26,7 @@ const Home = () => {
           ) : (
             <p>Você não selecionou nenhum item</p>
           )}
-        </div>
+        </ListProducts>
 
         <Cart />
       </FlexColumn>

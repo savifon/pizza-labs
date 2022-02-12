@@ -10,3 +10,7 @@ export const CartBox = styled.div`
   border-radius: var(--radius);
   background: var(--colorBgPrimary);
 `;
+
+export const Text = styled.p`
+  font-weight: bold;
+`;

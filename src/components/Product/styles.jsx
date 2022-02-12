@@ -4,9 +4,9 @@ export const ProductCard = styled.div`
   display: flex;
   gap: 10px;
 
-  & + div {
+  /* & + div {
     margin-top: 20px;
-  }
+  } */
 `;
 
 export const Details = styled.div`

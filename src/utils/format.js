@@ -3,10 +3,7 @@ export const rounded = (value) => {
 };
 
 export const minutes = (ms) => {
-  const minutes = Math.floor(ms / 60000);
-  const seconds = ((ms % 60000) / 60000).toFixed(0);
-
-  return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  return Math.floor(ms / 60000).toFixed(0);
 };
 
 export const money = (value) => {

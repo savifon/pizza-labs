@@ -1,14 +1,23 @@
 import React, { createContext, useState, useEffect } from "react";
 
 import { api } from "../service/api";
-import { rounded } from "../utils/format";
+import { minutes, rounded } from "../utils/format";
+import Modal from "../components/Modal";
 
 const CartContext = createContext();
+
+const initialModal = {
+  display: false,
+  text: "",
+  textButton: "Voltar ao início",
+  action: () => {},
+};
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [priceCart, setPriceCart] = useState(0);
   const [orders, setOrders] = useState([]);
+  const [modalSuccess, setModalSuccess] = useState(initialModal);
 
   useEffect(() => {
     const recoveredOrder = localStorage.getItem("order");
@@ -66,6 +75,17 @@ export const CartProvider = ({ children }) => {
     const data = await response.data;
 
     if (data.success) {
+      const newModal = {
+        ...modalSuccess,
+        text: `Seu pedido será entregue em ${minutes(
+          data.deliveryTime
+        )} minutos!`,
+        action: () => setModalSuccess(initialModal),
+        display: true,
+      };
+
+      setModalSuccess(newModal);
+
       const currentOrders = [
         ...orders,
         {
@@ -89,6 +109,14 @@ export const CartProvider = ({ children }) => {
       value={{ cart, priceCart, orders, add, remove, checkout }}
     >
       {children}
+
+      {modalSuccess.display && (
+        <Modal
+          text={modalSuccess.text}
+          textButton={modalSuccess.textButton}
+          action={modalSuccess.action}
+        />
+      )}
     </CartContext.Provider>
   );
 };
