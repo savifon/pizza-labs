@@ -21,6 +21,6 @@ Para baixar e executar o projeto, siga os passos:
 4. `json-server src/server/index.js -p 3001`
 5. `npm start` ou `yarn start`
 
-
+https://user-images.githubusercontent.com/31941701/153739015-e91f4dc5-0862-4a4e-90c7-b1fd60e3a052.mp4
 
 > SAFE Labs Frontend Developer Challenge
