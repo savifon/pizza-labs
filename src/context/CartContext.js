@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 
 import { formatMinutes, rounded } from "../utils/format";
-import { api } from "../service/api";
+import { api } from "../services/api";
 import Modal from "../components/Modal";
 
 const CartContext = createContext();
