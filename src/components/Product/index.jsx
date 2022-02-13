@@ -47,7 +47,8 @@ const Product = ({ item, currentLocation }) => {
           )}
           <button
             disabled={cart.find(
-              (product) => product.id === item.id && currentLocation !== "cart"
+              (product) =>
+                product.name === item.name && currentLocation !== "cart"
             )}
             className="red"
             onClick={() => add(item)}

@@ -15,7 +15,7 @@ const Cart = () => {
       {cart.length ? (
         <>
           {cart.map((item) => (
-            <Product key={item.id} item={item} currentLocation="cart" />
+            <Product key={item.name} item={item} currentLocation="cart" />
           ))}
 
           <Text>Total: {formatPrice(priceCart)}</Text>

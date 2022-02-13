@@ -43,12 +43,12 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
 
   const add = (product) => {
-    const found = cart.find((item) => item.id === product.id);
+    const found = cart.find((item) => item.name === product.name);
 
     if (found) {
       setCart(
         cart.map((item) =>
-          item.id === product.id ? { ...found, qty: found.qty + 1 } : item
+          item.name === product.name ? { ...found, qty: found.qty + 1 } : item
         )
       );
     } else {
@@ -57,16 +57,16 @@ export const CartProvider = ({ children }) => {
   };
 
   const remove = (product) => {
-    const found = cart.find((item) => item.id === product.id);
+    const found = cart.find((item) => item.name === product.name);
 
     if (found.qty > 1) {
       setCart(
         cart.map((item) =>
-          item.id === product.id ? { ...found, qty: found.qty - 1 } : item
+          item.name === product.name ? { ...found, qty: found.qty - 1 } : item
         )
       );
     } else {
-      setCart(cart.filter((item) => item.id !== product.id));
+      setCart(cart.filter((item) => item.name !== product.name));
     }
   };
 
@@ -96,11 +96,11 @@ export const CartProvider = ({ children }) => {
         },
       ];
 
-      setCart([]);
       setOrders(currentOrders);
-
       localStorage.setItem("orders", JSON.stringify(currentOrders));
+
       localStorage.removeItem("order");
+      setCart([]);
     }
   };
 

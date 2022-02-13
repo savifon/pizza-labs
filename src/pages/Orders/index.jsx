@@ -19,7 +19,7 @@ const Orders = () => {
 
             <Products>
               {order.products.map((product) => (
-                <li key={product.id}>
+                <li key={product.name}>
                   {product.name} x{product.qty}
                 </li>
               ))}

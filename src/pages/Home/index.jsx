@@ -9,7 +9,6 @@ import { ListProducts } from "./styles";
 
 const Home = () => {
   const products = data.map((product, index) => ({
-    id: index + 1,
     ...product,
     price: product.price > 5 ? rounded(product.price * 0.95) : product.price,
     priceOriginal: product.price > 5 && product.price,
@@ -21,7 +20,7 @@ const Home = () => {
         <ListProducts>
           {products.length ? (
             products.map((product) => (
-              <Product key={product.id} item={product} />
+              <Product key={product.name} item={product} />
             ))
           ) : (
             <p>Você não selecionou nenhum item</p>
