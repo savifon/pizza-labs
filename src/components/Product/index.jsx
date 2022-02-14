@@ -24,10 +24,8 @@ const Product = ({ item, currentLocation }) => {
 
       <Details>
         <Title>
-          {item.name}:
-          <Ingredients>
-            {item.ingredients.map((ingredient) => ` ${ingredient},`)}
-          </Ingredients>
+          {`${item.name}: `}
+          <Ingredients>{item.ingredients.join([", "])}</Ingredients>
         </Title>
 
         <Price>
