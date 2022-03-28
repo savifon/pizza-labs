@@ -23,4 +23,4 @@ Para baixar e executar o projeto, abra o terminal na pasta onde deseja baixar o 
 
 https://user-images.githubusercontent.com/31941701/153739015-e91f4dc5-0862-4a4e-90c7-b1fd60e3a052.mp4
 
-> SAFE Labs Frontend Developer Challenge
+> <sub><sup>SAFE Labs Frontend Developer Challenge<sub><sup>
